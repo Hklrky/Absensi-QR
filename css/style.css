@@ -37,7 +37,7 @@ body {
 
 .hidden { display: none !important; }
 
-/* Comic Card Styling */
+/* Comic Card Styling dengan min-width: 0 agar tidak meluber di HP */
 .comic-card {
     background: var(--panel-bg);
     border: var(--comic-border);
@@ -46,6 +46,7 @@ body {
     padding: 24px;
     margin-bottom: 24px;
     position: relative;
+    min-width: 0; 
 }
 
 .comic-header {
@@ -116,19 +117,6 @@ body {
 
 .comic-btn.blue { background: var(--blue); color: #111; }
 .comic-btn.green { background: var(--green); color: white; }
-
-/* Scanner Khusus */
-.scanner-container {
-    text-align: center;
-}
-.scanner-frame {
-    border: var(--comic-border);
-    border-radius: 12px;
-    overflow: hidden;
-    background: #000;
-    margin: 20px 0;
-}
-#reader { width: 100%; }
 
 /* Form & Input */
 .form-group { margin-bottom: 16px; text-align: left; }
@@ -253,7 +241,6 @@ body {
         padding: 8px 12px;
     }
 
-    /* Ubah 2 kolom desktop menjadi 1 kolom di HP */
     .dashboard-grid {
         grid-template-columns: 1fr;
         gap: 16px;
