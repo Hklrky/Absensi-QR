@@ -42,7 +42,7 @@
 Absensi-QR/
 ├── image/              # Folder penyimpanan logo
 ├── admin/
-    └── admin.php       # Dashboard administrator
+    └── index.php       # Dashboard administrator
 ├── api/
     └── api.php         # Backend API penghubung frontend ke database MySQL
 ├── css/
