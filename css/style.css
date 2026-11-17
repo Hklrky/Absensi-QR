@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+:root {
+    --comic-bg: #fdf6e2;
+    --panel-bg: #ffffff;
+    --comic-border: 3px solid #111111;
+    --comic-shadow: 5px 5px 0px #111111;
+    --primary: #ffcc00;
+    --accent: #ff3366;
+    --blue: #00ccff;
+    --green: #00cc66;
+    --text-main: #111111;
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+}
+
+body {
+    background-color: var(--comic-bg);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 20px;
+    background-image: radial-gradient(#d1c7a3 15%, transparent 16%), radial-gradient(#d1c7a3 15%, transparent 16%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+.container { 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    width: 100%;
+}
+
+.hidden { display: none !important; }
+
+/* Comic Card Styling */
+.comic-card {
+    background: var(--panel-bg);
+    border: var(--comic-border);
+    box-shadow: var(--comic-shadow);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.comic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: var(--primary);
+    border: var(--comic-border);
+    box-shadow: var(--comic-shadow);
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.comic-title {
+    font-family: 'Bangers', cursive;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #fff;
+    line-height: 1.1;
+}
+
+/* Grid Responsif untuk Dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.comic-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    padding: 10px 18px;
+    background: var(--accent);
+    color: white;
+    border: var(--comic-border);
+    box-shadow: 3px 3px 0px #111;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.comic-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0px #111;
+}
+
+.comic-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #111;
+}
+
+.comic-btn.blue { background: var(--blue); color: #111; }
+.comic-btn.green { background: var(--green); color: white; }
+
+/* Scanner Khusus */
+.scanner-container {
+    text-align: center;
+}
+.scanner-frame {
+    border: var(--comic-border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    margin: 20px 0;
+}
+#reader { width: 100%; }
+
+/* Form & Input */
+.form-group { margin-bottom: 16px; text-align: left; }
+.form-group label { font-weight: 800; display: block; margin-bottom: 6px; font-size: 0.95rem; }
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: var(--comic-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    outline: none;
+    background: #fff;
+    box-shadow: 3px 3px 0px #111;
+    transition: background 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+    background: #fffbeb;
+}
+
+/* Input Manual & Filter Bar */
+.filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.manual-box {
+    background: #fdf2f8;
+    border: 2px solid #111;
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+.manual-form {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.manual-form input, .manual-form select {
+    padding: 8px 10px;
+    border: 2px solid #111;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* Alert Boxes */
+.comic-alert {
+    padding: 14px;
+    border: var(--comic-border);
+    box-shadow: 3px 3px 0px #111;
+    border-radius: 8px;
+    font-weight: 800;
+    margin-top: 15px;
+}
+.alert-success { background: #bbf7d0; color: #166534; }
+.alert-warning { background: #fef08a; color: #854d0e; }
+.alert-danger  { background: #fecaca; color: #991b1b; }
+
+/* Table Styling */
+.table-wrapper {
+    overflow-x: auto;
+    max-height: 360px;
+    border: var(--comic-border);
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px #111;
+    background: white;
+}
+.table-comic {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    min-width: 480px;
+}
+.table-comic th, .table-comic td {
+    padding: 10px 12px;
+    border-bottom: 2px solid #111;
+    border-right: 2px solid #111;
+    text-align: left;
+    font-size: 0.9rem;
+}
+.table-comic th:last-child, .table-comic td:last-child {
+    border-right: none;
+}
+.table-comic tr:last-child td {
+    border-bottom: none;
+}
+.table-comic th {
+    background: var(--primary);
+    font-weight: 800;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+/* =========================================
+   RESPONSIF OTOMATIS UNTUK LAYAR HP (MOBILE)
+   ========================================= */
+@media (max-width: 768px) {
+    body {
+        padding: 12px;
+    }
+
+    .comic-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+    }
+
+    .comic-title {
+        font-size: 1.8rem;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .header-actions .comic-btn {
+        flex: 1;
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+
+    /* Ubah 2 kolom desktop menjadi 1 kolom di HP */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .comic-card {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .manual-form {
+        flex-direction: column;
+    }
+
+    .manual-form input, 
+    .manual-form select, 
+    .manual-form button {
+        width: 100%;
+    }
+
+    .filter-bar {
+        width: 100%;
+    }
+    .filter-bar input[type="date"] {
+        flex: 1;
+    }
+}

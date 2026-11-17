@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCANNER ABSENSI</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        #reader video {
+            transform: scaleX(-1);
+            object-fit: cover;
+        }
+        #reader__dashboard_section_csr button,
+        #reader__dashboard_section_swap_link,
+        #html5-qrcode-button-camera-permission,
+        #html5-qrcode-button-camera-stop {
+            display: none !important;
+        }
+        .scanner-frame {
+            position: relative;
+            background: #000;
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 600px; margin-top: 30px;">
+        <div class="comic-header" style="justify-content: center;">
+            <h1 class="comic-title">⚡ ABSENSI KILAT ⚡</h1>
+        </div>
+        <div class="comic-card scanner-container">
+            <h2 style="font-family: 'Bangers', cursive; font-size: 1.8rem; margin-bottom: 5px;">ARAHKAN QR KARTUMU!</h2>
+            <p style="font-weight: 700; color: #555; margin-bottom: 15px;">Kamera depan aktif secara otomatis.</p>
+            <div class="scanner-frame">
+                <div id="reader"></div>
+            </div>
+            <div id="scanResultBox" class="comic-alert hidden"></div>
+        </div>
+    </div>
+    <script>
+        const SECRET_KEY = 'KODEPANJANG';
+        let isScanningCooldown = false;
+
+        function showComicAlert(type, message) {
+            const box = document.getElementById('scanResultBox');
+            box.className = `comic-alert alert-${type}`;
+            box.textContent = message;
+            box.classList.remove('hidden');
+        }
+
+        async function onScanSuccess(decodedText) {
+            if (isScanningCooldown) return;
+            isScanningCooldown = true;
+
+            try {
+                let qrData;
+                try {
+                    qrData = JSON.parse(decodedText);
+                } catch (err) {
+                    showComicAlert('danger', '⛔ QR CODE SALAH / BUKAN FORMAT ABSENSI!');
+                    setTimeout(() => { isScanningCooldown = false; }, 3000);
+                    return;
+                }
+
+                if (!qrData.key || qrData.key !== SECRET_KEY || !qrData.nama || !qrData.kelas) {
+                    showComicAlert('danger', '⛔ QR CODE TIDAK VALID ATAU PALSU!');
+                    setTimeout(() => { isScanningCooldown = false; }, 3000);
+                    return;
+                }
+
+                showComicAlert('warning', '⏳ MEMPROSES ABSENSI...');
+
+                const response = await fetch('../api/api.php?action=scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(qrData)
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    showComicAlert('success', '✨ ' + result.message);
+                } else if (result.status === 'warning') {
+                    showComicAlert('warning', '⚠️ ' + result.message);
+                } else {
+                    showComicAlert('danger', '⛔ ' + result.message);
+                }
+            } catch (e) {
+                showComicAlert('danger', '⛔ TERJADI KESALAHAN SISTEM!');
+            }
+
+            setTimeout(() => { isScanningCooldown = false; }, 3500);
+        }
+
+        const html5QrCode = new Html5Qrcode("reader");
+        
+        Html5Qrcode.getCameras().then(devices => {
+            if (devices && devices.length) {
+                let selectedCameraId = devices[0].id;
+                
+                for (let i = 0; i < devices.length; i++) {
+                    const label = devices[i].label.toLowerCase();
+                    if (label.includes('front') || label.includes('depan') || label.includes('user') || label.includes('selfie')) {
+                        selectedCameraId = devices[i].id;
+                        break;
+                    }
+                }
+
+                if (devices.length > 1 && !selectedCameraId) {
+                    selectedCameraId = devices[devices.length - 1].id;
+                }
+
+                html5QrCode.start(
+                    selectedCameraId,
+                    {
+                        fps: 10,
+                        qrbox: { width: 250, height: 250 }
+                    },
+                    onScanSuccess,
+                    (errorMessage) => {}
+                ).catch(err => {
+                    showComicAlert('danger', 'Gagal membuka kamera: ' + err);
+                });
+            } else {
+                showComicAlert('danger', 'Tidak ada kamera yang ditemukan di perangkat ini.');
+            }
+        }).catch(err => {
+            showComicAlert('danger', 'Izin kamera ditolak atau tidak didukung browser.');
+        });
+    </script>
+</body>
+</html>
