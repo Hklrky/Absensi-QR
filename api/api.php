@@ -8,9 +8,9 @@ header('Access-Control-Allow-Headers: Content-Type');
 date_default_timezone_set('Asia/Jakarta');
 
 $host     = 'localhost';
-$db_name  = 'bemtvsoe_absensi';
-$username = 'bemtvsoe_konek';
-$password = 'Masuk123@';
+$db_name  = 'hklrky_user';
+$username = 'hklrky_database';
+$password = 'Password123';
 $SECRET_KEY = 'KODEPANJANG';
 
 try {
