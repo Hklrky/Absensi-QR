@@ -41,11 +41,14 @@
 ```text
 Absensi-QR/
 ├── image/              # Folder penyimpanan logo
+├── admin/
+    └── admin.php       # Dashboard administrator
+├── api/
+    └── api.php         # Backend API penghubung frontend ke database MySQL
+├── css/
+    └── style.css       # Stylesheet utama bergaya Comic / Pop Art
 ├── .htaccess           # Konfigurasi URL bersih 
-├── admin.php           # Dashboard administrator
-├── api.php             # Backend API penghubung frontend ke database MySQL
-├── scan.html           # Halaman pemindai QR Code publik
-└── style.css           # Stylesheet utama bergaya Comic / Pop Art
+└── index.html           # Halaman pemindai QR Code publik
 
 ```
 
